@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "name": "New JSNB",
+    "language_info": {
+      "name": "JavaScipt",
+      "version": "8.0"
+    }
+  },
+  "jsnbversion": "v0.1",
+  "cells": [
+    {
+      "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Hand Gesture Game</title>\n    <style>\n        #gameCanvas {\n            border: 2px solid black;\n            background-color: #e0e0e0;\n        }\n    </style>\n</head>\n<body>\n    <h1>Hand Gesture Controlled Game</h1>\n    <canvas id=\"gameCanvas\" width=\"640\" height=\"480\"></canvas>\n</body>\n</html>",
+      "status": "",
+      "output": "\n\n\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Hand Gesture Game</title>\n    <style>\n        #gameCanvas {\n            border: 2px solid black;\n            background-color: #e0e0e0;\n        }\n    </style>\n\n\n    <h1>Hand Gesture Controlled Game</h1>\n    <canvas id=\"gameCanvas\" width=\"640\" height=\"480\"></canvas>\n\n",
+      "type": "html"
+    },
+    {
+      "code": "await import(\"https://cdn.jsdelivr.net/npm/@tensorflow/tfjs\")\nawait import(\"https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose\")\nawait import(\"https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl\")\n\t\tlet objectX = 0;\n\t\tlet objectY = 0;\n       // Function to start webcam\n        async function startVideo() {\n            const stream = await navigator.mediaDevices.getUserMedia({ video: true });\n            video.srcObject = stream;\n            video.play();\n        }\n\n        // Initialize Handpose model\n        async function init() {\n            model = await handpose.load();\n            startVideo();\n            detectHands();\n            draw();\n        }\n\n        // Function to detect hand landmarks\n        async function detectHands() {\n            if (video.readyState === video.HAVE_ENOUGH_DATA) {\n                handData = await model.estimateHands(video);\n            }\n            requestAnimationFrame(detectHands);\n        }\n\n        // Function to update object position based on hand position\n        function updatePosition() {\n            if (handData && handData.length > 0) {\n                // Use the index finger tip (point 8) to control object position\n                const indexFinger = handData[0].landmarks[8];\n                objectX = (indexFinger[0] / video.videoWidth) * canvas.width;\n                objectY = (indexFinger[1] / video.videoHeight) * canvas.height;\n            }\n        }",
+      "status": "[5]<br><span style=\"font-size:8px\">12ms<span></span></span>",
+      "output": "",
+      "type": "code"
+    }
+  ],
+  "source": "https://github.com/gopi-suvanam/jsnb",
+  "run_on_load": false
+}
